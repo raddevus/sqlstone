@@ -6,7 +6,18 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-<div style="padding:8px"><label for="uuid">UUID:</label>
-        <input type="text" id="uuid" size="50"/>
-        <button onclick="genUuid()">Gen/Set UUID</button>
-    </div>
+<div style="padding:8px">
+    <label for="uuid">UUID:</label>
+    <input type="text" id="uuid" size="50"/>
+    <button onclick="genUuid()">Gen/Set UUID</button>
+
+    <button onclick="registerUser()">register</button>
+</div>
+
+
+<div class="col col-sm-9 debug-border2">
+    <label for="dailyNotes">Journal Entry:</label>
+    <textarea class="w-100" id="dailyNotes" autofocus></textarea>
+    <button class="btn btn-primary btn-sm" onclick="saveEntryData()">Save</button>
+</div>
+
