@@ -19,10 +19,15 @@ function loadUuidFromLocalStorage(){
     }
 }
 
+function saveUuidToLocalStorage(){
+    localStorage.setItem(lsUuidName,currentUuid);
+}
+
 
 function genUuid(){
     if (document.querySelector("#uuid").value != ""){
         currentUuid = document.querySelector("#uuid").value;
+        saveUuidToLocalStorage();
         return;
     }
     currentUuid = uuidv4();
@@ -46,7 +51,8 @@ function registerUser(){
         alert("Please generate & set a valid UUID value and try again.");
         return;
     }
-    localStorage.setItem(lsUuidName,currentUuid);
+    
+    saveUuidToLocalStorage();
 
     fetch(`${baseUrl}User/RegisterUser`)
         .then(response => response.json())
