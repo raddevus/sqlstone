@@ -16,6 +16,11 @@ function uuidChanged(){
     }
 }
 
+function deleteUuid(){
+    document.querySelector("#uuid").value = "";
+    currentUuid = null;
+}
+
 function registerUser(){
     if (currentUuid == null || currentUuid == ""){
         alert("Please generate & set a valid UUID value and try again.");
