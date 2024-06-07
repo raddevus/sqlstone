@@ -1,5 +1,24 @@
 ﻿// main.js
 var currentUuid = null;
+var lsUuidName = "currentUuid";
+var baseUrl = "http://localhost:5215/";  // make sure to include trailing /
+
+document.querySelector("body").addEventListener("load", initApp());
+
+
+function initApp(){
+    console.log("initializing app...");
+    loadUuidFromLocalStorage();
+}
+
+function loadUuidFromLocalStorage(){
+    var uuid = localStorage.getItem(lsUuidName);
+    if (uuid != null){
+        currentUuid = uuid;
+        document.querySelector("#uuid").value = currentUuid;
+    }
+}
+
 
 function genUuid(){
     if (document.querySelector("#uuid").value != ""){
@@ -19,6 +38,7 @@ function uuidChanged(){
 function deleteUuid(){
     document.querySelector("#uuid").value = "";
     currentUuid = null;
+    localStorage.removeItem(lsUuidName);
 }
 
 function registerUser(){
@@ -26,7 +46,9 @@ function registerUser(){
         alert("Please generate & set a valid UUID value and try again.");
         return;
     }
-    fetch('http://localhost:5215/User/RegisterUser')
+    localStorage.setItem(lsUuidName,currentUuid);
+
+    fetch(`${baseUrl}User/RegisterUser`)
         .then(response => response.json())
         .then(data => console.log(data));
 
