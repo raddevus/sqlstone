@@ -8,7 +8,7 @@
 </div>
 <div style="padding:8px">
     <label for="uuid">UUID:</label>
-    <input type="text" id="uuid" size="50"/>
+    <input type="text" oninput=uuidChanged() id="uuid" size="50"/>
     <button onclick="genUuid()">Gen/Set UUID</button>
 
     <button onclick="registerUser()">register</button>
