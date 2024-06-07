@@ -19,8 +19,8 @@ public class UserController : Controller
     [HttpGet]
     public ActionResult RegisterUser(string guid){
         User u = new User(guid);
-
-        return new JsonResult(new {result=true, directory=webRootPath});
+        var ipAddr = HelperTool.GetIpAddress(Request);
+        return new JsonResult(new {result=true, directory=webRootPath, ip=ipAddr});
     }
 
 }
