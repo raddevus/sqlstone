@@ -18,12 +18,15 @@ public class UserController : Controller
         contentRootPath = webHostEnvironment.ContentRootPath;
     }
 
-    [HttpGet]
-    public ActionResult RegisterUser(string guid){
-        User u = new User(guid);
+    [HttpPost]
+    public ActionResult RegisterUser([FromQuery] string uuid){
+        Console.WriteLine($"uuid: {uuid}");
+        User u = new User(uuid);
         var ipAddr = HelperTool.GetIpAddress(Request);
-
+        UuidInfo info = new UuidInfo{Uuid=uuid,IpAddr=ipAddr};
         UuidInfoContext uuidCtx = new UuidInfoContext(contentRootPath);
+        uuidCtx.Add(info);
+        uuidCtx.SaveChanges();
 
         return new JsonResult(new {result=true, directory=webRootPath, ip=ipAddr});
     }

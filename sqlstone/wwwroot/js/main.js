@@ -53,8 +53,12 @@ function registerUser(){
     }
     
     saveUuidToLocalStorage();
-
-    fetch(`${baseUrl}User/RegisterUser`)
+    var postdata = {"uuid":currentUuid}
+    console.log(`postdata: ${postdata}`);
+    console.log(`postdata: ${JSON.stringify(postdata)}`)
+    fetch(`${baseUrl}User/RegisterUser?uuid=${currentUuid}`,{
+            method: 'POST',
+        })
         .then(response => response.json())
         .then(data => console.log(data));
 

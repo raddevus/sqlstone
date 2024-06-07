@@ -11,7 +11,7 @@ public class UuidInfoContext: DbContext{
     {
         DbPath = System.IO.Path.Join(dbRootPath, "sqlstone.db");
         Console.WriteLine(DbPath);
-        return;
+        
         SqliteConnection connection = new SqliteConnection($"Data Source={DbPath}");
         // ########### FYI THE DB is created when it is OPENED ########
         connection.Open();
@@ -30,7 +30,7 @@ public class UuidInfoContext: DbContext{
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite($"Data Source={DbPath}");
     protected String [] allTableCreation = {
-        @"CREATE TABLE ThreadData
+        @"CREATE TABLE UuidInfo
             (
             [ID] INTEGER NOT NULL PRIMARY KEY,
             [Uuid] NVARCHAR(36) NOT NULL check(length(Uuid) <= 36),
