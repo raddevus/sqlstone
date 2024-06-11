@@ -20,9 +20,24 @@
 
 <button class="btn-primary" onclick="registerUser()">Register UUID</button>
 
-<div class="col col-sm-9 debug-border2">
-    <label for="dailyNotes">Journal Entry:</label>
-    <textarea class="w-100" id="dailyNotes" autofocus></textarea>
-    <button class="btn btn-primary btn-sm" onclick="saveEntryData()">Save</button>
+<div id="journalEntries">
+    <h2>Journal Entries</h2>
+        <div id="history-spinner" class="text-center text-success">
+          <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>  
+        <table id="journalEntryTable" class="table  table-striped">
+            <thead class="table-success">
+                <tr>
+                    <th>Title</th>
+                    <th>Note</th>   
+                    <th>Action</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                </tr>
+            </thead>
+            <tbody id="journalentries">
+            </tbody>
+          </table>
 </div>
-

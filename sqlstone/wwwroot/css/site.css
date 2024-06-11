@@ -43,3 +43,6 @@ textarea {
   /* Resize creates a tab in the lower right corner of textarea for most modern browsers and allows users to resize the box manually. Note: Resize isn't supported by most older agents and IE. */
   resize: both;
 }
+
+.k-hidden{visibility:hidden;display:none;}
+.k-show{visibility:visible;display:block;}
