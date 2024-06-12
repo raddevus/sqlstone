@@ -24,7 +24,7 @@ function addJournalEntries(){
 
 function addEntry(){
     
-    fakeData.push({id:entryCount++,title:"",note:null,created: new Date().yyyymmdd(),updated:null});
+    fakeData.push({id:0,title:"",note:null,created: new Date().yyyymmdd(),updated:null});
     
     displayUserTaskTable(fakeData, "#journalentries");
 }

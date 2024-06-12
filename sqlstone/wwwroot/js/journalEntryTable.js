@@ -1,11 +1,9 @@
-var entryCount = 0;
-
 const JournalEntryTable = function(journalEntries){
 
     console.log(journalEntries[0]);
     
      let allItems = [];
-    entryCount = 0;
+
     for (let x=0; x < journalEntries.length;x++){
         console.log(`journalEntries[${x}].note: ${journalEntries[x].note}`);
         allItems.push( React.createElement("tr",{key:x, id:journalEntries[x].id},
@@ -20,29 +18,37 @@ const JournalEntryTable = function(journalEntries){
         
             )
        );
-       entryCount++;
-       
     }
     return allItems.reverse();
 }
 
 function handleClick(e){
-    var userTaskId = 0;
+    
+    var entryId = 0;
     if (e.target.type == undefined){
         console.log(`e: ${e.target.parentElement.id}`);
-        userTaskId = e.target.parentElement.id;
+        entryId = e.target.parentElement.id;
         return;
     }
     else{
         console.log(`e: ${e.target.parentElement.parentElement.id}`);
-        userTaskId = e.target.parentElement.parentElement.id;
+        entryId = e.target.parentElement.parentElement.id;
     }
     
+    var promptValue = prompt("Please enter a title for the Journal Entry");
+
+    if (promptValue != null){
+        console.log(`I got that thing: ${promptValue}`);
+    }
+
+    alert(`entryId : ${entryId}`);
+    return;
+
     // Do you want to save a completed date?
 
     var formData = new FormData();
-    formData.append("userTaskId",userTaskId);
-    let noteText = document.querySelector(`#note-${userTaskId}`).value;
+    formData.append("entryId",entryId);
+    let noteText = document.querySelector(`#note-${entryId}`).value;
     console.log(`noteText: ${noteText}`);
     formData.append("note",noteText);
 
@@ -51,7 +57,7 @@ function handleClick(e){
     if (result){
         var completedDate = new Date().yyyymmdd();
         formData.append("completed",completedDate);
-        document.querySelector(`#completed-${userTaskId}`).innerHTML = completedDate;
+        document.querySelector(`#completed-${entryId}`).innerHTML = completedDate;
     }
     console.log(`finalURL: ${urlRoot}${updateUserTask}`)
     fetch(`${urlRoot}${updateUserTask}`,
