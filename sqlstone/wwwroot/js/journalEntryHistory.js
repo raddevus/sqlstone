@@ -1,4 +1,8 @@
 let fakeData = [];
+fakeData.push({id:0,title:"first one",note:"first data",created:"2024-04-04",updated:null});
+fakeData.push({id:1,title:"2nd one",note:"Anyone running a small-biz SaaS & making $$$?",created:"2024-04-06",updated:null});
+let fakeId = 2;
+
 function addJournalEntries(){
 
     let at = document.querySelector("#journalEntryTable");
@@ -10,9 +14,6 @@ function addJournalEntries(){
     elx.setAttribute("id","journalentries");
     at.append(elx);
     
-    
-    fakeData.push({title:"first one",note:"first data",created:"2024-04-04",updated:null});
-    fakeData.push({title:"2nd one",note:"Anyone running a small-biz SaaS & making $$$?",created:"2024-04-06",updated:null});
     // fetch(`${urlRoot}${getAllJournalEntries}`, {
     //     method: 'POST',
     //     })
@@ -22,7 +23,9 @@ function addJournalEntries(){
 }
 
 function addEntry(){
-    fakeData.push({title:"",note:"",created: new Date().yyyymmdd(),updated:null});
+    
+    fakeData.push({id:entryCount++,title:"",note:null,created: new Date().yyyymmdd(),updated:null});
+    
     displayUserTaskTable(fakeData, "#journalentries");
 }
 

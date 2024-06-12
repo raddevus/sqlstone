@@ -1,9 +1,13 @@
+var entryCount = 0;
+
 const JournalEntryTable = function(journalEntries){
 
     console.log(journalEntries[0]);
+    
      let allItems = [];
-
+    entryCount = 0;
     for (let x=0; x < journalEntries.length;x++){
+        console.log(`journalEntries[${x}].note: ${journalEntries[x].note}`);
         allItems.push( React.createElement("tr",{key:x, id:journalEntries[x].id},
         
         React.createElement("td",null, journalEntries[x].title),
@@ -16,8 +20,10 @@ const JournalEntryTable = function(journalEntries){
         
             )
        );
+       entryCount++;
+       
     }
-    return allItems;
+    return allItems.reverse();
 }
 
 function handleClick(e){
