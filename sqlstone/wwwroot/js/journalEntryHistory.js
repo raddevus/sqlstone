@@ -1,3 +1,4 @@
+let urlRoot = "http://localhost:5215/";
 let fakeData = [];
 fakeData.push({id:0,title:"first one",note:"first data",created:"2024-04-04",updated:null});
 fakeData.push({id:1,title:"2nd one",note:"Anyone running a small-biz SaaS & making $$$?",created:"2024-04-06",updated:null});
@@ -14,12 +15,15 @@ function addJournalEntries(){
     elx.setAttribute("id","journalentries");
     at.append(elx);
     
-    // fetch(`${urlRoot}${GetAllJournalEntries}`, {
-    //     method: 'POST',
-    //     })
-    //     .then(response => response.json())
-    //     .then(allUserTasks => displayUserTaskTable(allUserTasks.allUserTasks, "#journalentries"));
-    displayUserTaskTable(fakeData, "#journalentries");
+    let postData = new FormData();
+    postData.append("uuid", currentUuid);
+    fetch(`${urlRoot}JournalEntry/GetAll`, {
+        method: 'POST',
+        body: postData,
+        })
+        .then(response => response.json())
+        .then(allJournalEntries => displayUserTaskTable(allJournalEntries, "#journalentries"));
+    // displayUserTaskTable(fakeData, "#journalentries");
 }
 
 function addEntry(){

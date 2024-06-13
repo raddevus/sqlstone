@@ -22,10 +22,13 @@ public class JournalEntryController : Controller
     }
 
     [HttpPost]
-    public ActionResult GetAllJournalEntries([FromForm] string uuid){
+    public ActionResult GetAll([FromForm] string uuid){
         var userDir = Path.Combine(webRootPath,uuid);
         var userDbFile = Path.Combine(userDir,journalTemplateDbFile);
-        return new JsonResult(new {gargage="test"});
+        List<dynamic> allItems = new List<dynamic>();
+        allItems.Add(new {id=0,title="WebAPI one",note="first data from webapi!",created="2024-04-04",updated=""});
+        allItems.Add(new {id=1,title="WebAPI 2nd one",note="API - Anyone running a small-biz SaaS & making $$$?",created="2024-04-06",updated=""});
+        return new JsonResult(allItems);
     }
 
 
