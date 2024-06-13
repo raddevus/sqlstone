@@ -14,7 +14,7 @@ function addJournalEntries(){
     elx.setAttribute("id","journalentries");
     at.append(elx);
     
-    // fetch(`${urlRoot}${getAllJournalEntries}`, {
+    // fetch(`${urlRoot}${GetAllJournalEntries}`, {
     //     method: 'POST',
     //     })
     //     .then(response => response.json())

@@ -7,13 +7,13 @@ namespace sqlstone.Controllers;
 
 public class UserController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<UserController> _logger;
     private string webRootPath;
     private string contentRootPath;
 
     const string journalTemplateDbFile = "sqlstone_journal.db";
 
-    public UserController(ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment)
+    public UserController(ILogger<UserController> logger, IWebHostEnvironment webHostEnvironment)
     {
         _logger = logger;
         Console.WriteLine($"content rootPath: {webHostEnvironment.WebRootPath}");
