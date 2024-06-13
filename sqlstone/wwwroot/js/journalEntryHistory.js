@@ -1,8 +1,5 @@
-let urlRoot = "http://localhost:5215/";
-let fakeData = [];
-fakeData.push({id:0,title:"first one",note:"first data",created:"2024-04-04",updated:null});
-fakeData.push({id:1,title:"2nd one",note:"Anyone running a small-biz SaaS & making $$$?",created:"2024-04-06",updated:null});
-let fakeId = 2;
+
+let localJEntries = [];
 
 function addJournalEntries(){
 
@@ -17,20 +14,23 @@ function addJournalEntries(){
     
     let postData = new FormData();
     postData.append("uuid", currentUuid);
-    fetch(`${urlRoot}JournalEntry/GetAll`, {
+    fetch(`${baseUrl}JournalEntry/GetAll`, {
         method: 'POST',
         body: postData,
         })
         .then(response => response.json())
-        .then(allJournalEntries => displayUserTaskTable(allJournalEntries, "#journalentries"));
+        .then(allJournalEntries => {
+            localJEntries = allJournalEntries;            
+            displayUserTaskTable(allJournalEntries, "#journalentries");
+        });
     // displayUserTaskTable(fakeData, "#journalentries");
 }
 
 function addEntry(){
     
-    fakeData.push({id:0,title:"",note:null,created: new Date().yyyymmdd(),updated:null});
+    localJEntries.push({id:0,title:"",note:null,created: new Date().yyyymmdd(),updated:null});
     
-    displayUserTaskTable(fakeData, "#journalentries");
+    displayUserTaskTable(localJEntries, "#journalentries");
 }
 
 function displayUserTaskTable(journalEntries, rootElement){
