@@ -8,7 +8,7 @@ const JournalEntryTable = function(journalEntries){
         console.log(`journalEntries[${x}].note: ${journalEntries[x].note}`);
         allItems.push( React.createElement("tr",{key:x, id:journalEntries[x].id},
         
-        React.createElement("td",null, journalEntries[x].title),
+        React.createElement("td",{id:`title-${journalEntries[x].id}`}, journalEntries[x].title),
         React.createElement("td",{width:"150px"}, 
             React.createElement("textarea",{id:`note-${journalEntries[x].id}`},journalEntries[x].note)),
         React.createElement("td",{width:"150px"},
@@ -39,6 +39,7 @@ function handleClick(e){
 
     if (promptValue != null){
         console.log(`I got that thing: ${promptValue}`);
+        document.querySelector(`#title-${entryId}`).textContent = promptValue;
     }
 
     alert(`entryId : ${entryId}`);
