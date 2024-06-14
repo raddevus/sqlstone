@@ -25,6 +25,10 @@ public class JournalEntryController : Controller
     public ActionResult GetAll([FromForm] string uuid){
         var userDir = Path.Combine(webRootPath,uuid);
         var userDbFile = Path.Combine(userDir,journalTemplateDbFile);
+
+        if (!System.IO.File.Exists(userDbFile)){
+            return new JsonResult(new {result="No data"});
+        }
         
         JournalEntryContext jec = new JournalEntryContext(userDbFile);
 

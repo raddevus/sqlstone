@@ -27,7 +27,12 @@ function addJournalEntries(){
 }
 
 function addEntry(){
-    
+    if (currentUuid == undefined || currentUuid == null || currentUuid == ""){
+        alert("You need to register a UUID to create and save data.");
+        return;
+    }
+    // checking to make sure we don't delete existing entries
+    if (localJEntries.length == undefined){ localJEntries=[];}
     localJEntries.push({id:0,title:"",note:null,created: new Date().yyyymmdd(),updated:null});
     
     displayUserTaskTable(localJEntries, "#journalentries");
