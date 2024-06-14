@@ -11,11 +11,22 @@ public class JournalEntryController : Controller
 
     private string webRootPath;
     private string contentRootPath;
-    const string journalTemplateDbFile = "sqlstone_journal.db";
 
-    public JournalEntryController(ILogger<JournalEntryController> logger, IWebHostEnvironment webHostEnvironment)
+    IConfiguration _configuration;
+
+    // templateDbFile is your sqlite3 db which contains
+    // all of your tables for your custom solution.
+    // The name is set in the appsettings.json file.
+    // You can name it anything you like.  This db will
+    // be copied to each user's "file workspace" in their wwwroot/<uuid> folder
+    readonly string templateDbFile;
+
+    public JournalEntryController(ILogger<JournalEntryController> logger, 
+            IConfiguration _configuration,
+            IWebHostEnvironment webHostEnvironment)
     {
         _logger = logger;
+        templateDbFile = _configuration["templateDbFile"];
         Console.WriteLine($"content rootPath: {webHostEnvironment.WebRootPath}");
         webRootPath = webHostEnvironment.WebRootPath;
         contentRootPath = webHostEnvironment.ContentRootPath;
@@ -24,7 +35,7 @@ public class JournalEntryController : Controller
     [HttpPost]
     public ActionResult GetAll([FromForm] string uuid){
         var userDir = Path.Combine(webRootPath,uuid);
-        var userDbFile = Path.Combine(userDir,journalTemplateDbFile);
+        var userDbFile = Path.Combine(userDir,templateDbFile);
 
         if (!System.IO.File.Exists(userDbFile)){
             return new JsonResult(new {result="No data"});
@@ -53,7 +64,7 @@ public class JournalEntryController : Controller
         Console.WriteLine(jentry.Note);
         Console.WriteLine(jentry.Title);
         var userDir = Path.Combine(webRootPath,uuid);
-        var userDbFile = Path.Combine(userDir,journalTemplateDbFile);
+        var userDbFile = Path.Combine(userDir,templateDbFile);
         JournalEntryContext jec = new JournalEntryContext(userDbFile);
         jec.Add(jentry);
         jec.SaveChanges();
