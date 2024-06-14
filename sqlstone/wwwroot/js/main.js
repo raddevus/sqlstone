@@ -2,6 +2,7 @@
 var currentUuid = null;
 var lsUuidName = "currentUuid";
 var baseUrl = "http://localhost:5215/";  // make sure to include trailing /
+var alertInterval = null;
 
 document.querySelector("body").addEventListener("load", initApp());
 
@@ -28,6 +29,7 @@ function genUuid(){
     if (document.querySelector("#uuid").value != ""){
         currentUuid = document.querySelector("#uuid").value;
         saveUuidToLocalStorage();
+        window.location.reload();
         return;
     }
     currentUuid = uuidv4();
@@ -44,6 +46,7 @@ function deleteUuid(){
     document.querySelector("#uuid").value = "";
     currentUuid = null;
     localStorage.removeItem(lsUuidName);
+    window.location.reload();
 }
 
 function registerUser(){
@@ -52,9 +55,6 @@ function registerUser(){
         return;
     }
 
-    uuidRegisterAlert(); return;
-
-    
     saveUuidToLocalStorage();
     var postdata = {"uuid":currentUuid}
     console.log(`postdata: ${postdata}`);
@@ -63,7 +63,8 @@ function registerUser(){
             method: 'POST',
         })
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => console.log(data))
+        .then(uuidRegisterAlert());
 
 }
 
@@ -85,8 +86,9 @@ Date.prototype.yyyymmdd = function() {
 
 function uuidRegisterAlert() {
 	document.querySelector('.alert').style.display='block';
-	setInterval(() => {
+	alertInterval = setInterval(() => {
 		document.querySelector('.alert').style.display='none';
+        clearInterval(alertInterval);
 	}, 5500);
 }
 
