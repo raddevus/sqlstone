@@ -44,5 +44,9 @@ textarea {
   resize: both;
 }
 
+#noshow{visibility:hidden;}
+.hide{display:none;}
+
 .k-hidden{visibility:hidden;display:none;}
 .k-show{visibility:visible;display:block;}
+#uuidAlertBtn{float:right;}

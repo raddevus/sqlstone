@@ -51,6 +51,9 @@ function registerUser(){
         alert("Please generate & set a valid UUID value and try again.");
         return;
     }
+
+    uuidRegisterAlert(); return;
+
     
     saveUuidToLocalStorage();
     var postdata = {"uuid":currentUuid}
@@ -79,5 +82,12 @@ Date.prototype.yyyymmdd = function() {
   
     return [this.getFullYear() + "-", mm.length===2 ? '' : '0', mm + "-", dd.length===2 ? '' : '0', dd].join(''); // padding
   };
+
+function uuidRegisterAlert() {
+	document.querySelector('.alert').style.display='block';
+	setInterval(() => {
+		document.querySelector('.alert').style.display='none';
+	}, 5500);
+}
 
 

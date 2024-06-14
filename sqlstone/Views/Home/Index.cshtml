@@ -17,10 +17,13 @@
     <button class="btn-primary" onclick="genUuid()">Gen/Set UUID</button>  
 </div>
 
-<div class="alert alert-warning alert-dismissible fade" role="alert">
-  User has been registered.
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="alert alert-success fade show hide alert-dismissable"  role="alert">
+       <span>The UUID has been registered on the server.</span>
+      <button id="uuidAlertBtn" type="button" class="btn-close" data-dismiss="alert" aria-label="Close"
+      onclick="javascript:document.querySelector('.alert').style.display='none'">
+    </button>
 </div>
+
 <button class="btn-primary" onclick="registerUser()">Register UUID</button>
 <hr class="border border-primary border-3">
 <div id="journalEntries">
