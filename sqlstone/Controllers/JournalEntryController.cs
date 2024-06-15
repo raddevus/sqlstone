@@ -81,10 +81,10 @@ public class JournalEntryController : Controller
     }
 
     public void ConvertEmptyStringToNull(JournalEntry jentry){
-        if (jentry.Title == String.Empty){
+        if (jentry.Title == String.Empty || jentry.Title == "null"){
             jentry.Title = null;
         }
-        if (jentry.Updated == String.Empty){
+        if (jentry.Updated == String.Empty || jentry.Updated == "null"){
             jentry.Updated = null;
         }
     }
