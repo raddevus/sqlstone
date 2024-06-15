@@ -15,7 +15,7 @@ const JournalEntryTable = function(journalEntries){
         React.createElement("td",{width:"150px"}, 
             React.createElement("textarea",{id:`note-${currentId}`},journalEntries[x].note)),
         React.createElement("td",{width:"150px"},
-            React.createElement("button", {onClick: this.handleClick.bind(this)},"Save")),
+            React.createElement("button", {onClick: this.handleSaveClick.bind(this)},"Save")),
         React.createElement("td",{id:`created-${currentId}`,width:"150px"},  new Date(journalEntries[x].created).yyyymmdd()),
         React.createElement("td",{width:"150px"}, journalEntries[x].updated)
         
@@ -25,7 +25,7 @@ const JournalEntryTable = function(journalEntries){
     return allItems.reverse();
 }
 
-function handleClick(e){
+function handleSaveClick(e){
     
     var entryId = 0;
     if (e.target.type == undefined){
@@ -39,7 +39,7 @@ function handleClick(e){
     }
     
     var titleText = prompt("Please enter a title for the Journal Entry");
-
+    
     if (titleText != null){
         console.log(`I got that thing: ${titleText}`);
         document.querySelector(`#title-${entryId}`).textContent = titleText;
