@@ -65,11 +65,18 @@ public class JournalEntryController : Controller
         Console.WriteLine(jentry.Title);
         var userDir = Path.Combine(webRootPath,uuid);
         var userDbFile = Path.Combine(userDir,templateDbFile);
-        JournalEntryContext jec = new JournalEntryContext(userDbFile);
-        jec.Add(jentry);
-        jec.SaveChanges();
+        try{
+            JournalEntryContext jec = new JournalEntryContext(userDbFile);
+            jec.Add(jentry);
+            jec.SaveChanges();
+        }
+        catch (Exception ex){
+            // It's possible that the user has attempted to save an Entry
+            // but has never registered the UUID they see in their text box.
+            return new JsonResult(new {success=false,error=$"{ex.Message}"});
+        }
 
-        return new JsonResult(new {result="success"});
+        return new JsonResult(new {success=true});
     }
 
 }

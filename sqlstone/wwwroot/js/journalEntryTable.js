@@ -89,7 +89,12 @@ function handleSaveClick(e){
         }).then(response => response.json())
         .then(data => {
             console.log(data);
-            alert("You're data has been saved successfully.");
+            if (data.success == false){
+                alert("## ERROR! ##\nYour data couldn't be saved.\nPlease make sure you've registered your UUID.");
+            }
+            else{
+                alert("You're data has been saved successfully.");
+            }
         
             });
 
