@@ -63,6 +63,7 @@ public class JournalEntryController : Controller
     public ActionResult Save([FromForm] String uuid, [FromForm] JournalEntry jentry){
         Console.WriteLine(jentry.Note);
         Console.WriteLine(jentry.Title);
+        ConvertEmptyStringToNull(jentry);
         var userDir = Path.Combine(webRootPath,uuid);
         var userDbFile = Path.Combine(userDir,templateDbFile);
         try{
@@ -77,6 +78,15 @@ public class JournalEntryController : Controller
         }
 
         return new JsonResult(new {success=true});
+    }
+
+    public void ConvertEmptyStringToNull(JournalEntry jentry){
+        if (jentry.Title == String.Empty){
+            jentry.Title = null;
+        }
+        if (jentry.Updated == String.Empty){
+            jentry.Updated = null;
+        }
     }
 
 }

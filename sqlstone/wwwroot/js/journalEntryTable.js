@@ -59,10 +59,10 @@ function handleSaveClick(e){
 
     var jentry = {
         Id: 0,
-        Title: titleText,
+        Title: titleText == "" ? null : titleText,
         Note: noteText,
         Created: createdDate,
-        Updated: null
+        Updated: Updated == "" ? null : Updated
     };
     
     for (var key in jentry) {
