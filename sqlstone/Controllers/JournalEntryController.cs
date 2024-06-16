@@ -60,16 +60,28 @@ public class JournalEntryController : Controller
     }
 
     [HttpPost]
-    public ActionResult Save([FromForm] String uuid, [FromForm] JournalEntry jentry){
+    public ActionResult Save([FromHeader] String uuid,[FromBody] JournalEntry jentry){
         Console.WriteLine(jentry.Note);
         Console.WriteLine(jentry.Title);
+        
         ConvertEmptyStringToNull(jentry);
         var userDir = Path.Combine(webRootPath,uuid);
         var userDbFile = Path.Combine(userDir,templateDbFile);
         try{
             JournalEntryContext jec = new JournalEntryContext(userDbFile);
-            jec.Add(jentry);
+            // id = 0 indicates a new jentry
+            if (jentry.Id == 0){
+                jec.Add(jentry);
+            }
+            else{
+                JournalEntry? currentEntry = jec.Find<JournalEntry>(jentry.Id);
+                currentEntry.Note = jentry.Note;
+                currentEntry.Title = jentry.Title;
+                currentEntry.Updated = DateTime.Now.ToString("yyyy-MM-dd");
+                jec.Update(currentEntry);   
+            }
             jec.SaveChanges();
+            
         }
         catch (Exception ex){
             // It's possible that the user has attempted to save an Entry
@@ -88,5 +100,8 @@ public class JournalEntryController : Controller
             jentry.Updated = null;
         }
     }
+}
 
+public record Uuid{
+    public string uuid{get;set;}
 }

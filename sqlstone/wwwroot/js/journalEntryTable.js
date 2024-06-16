@@ -37,7 +37,7 @@ function handleSaveClick(e){
         console.log(`e: ${e.target.parentElement.parentElement.id}`);
         entryId = e.target.parentElement.parentElement.id;
     }
-    
+    console.log(`entryId: ${entryId}`);
     var titleText = prompt("Please enter a title for the Journal Entry");
     
     if (titleText != null){
@@ -50,7 +50,7 @@ function handleSaveClick(e){
     // Do you want to save a completed date?
 
     var formData = new FormData();
-    formData.append("uuid",currentUuid);
+    formData.append(uuid,{"uuid":currentUuid});
     
     let noteText = document.querySelector(`#note-${entryId}`).value;
     let createdDate = document.querySelector(`#created-${entryId}`).textContent;
@@ -58,17 +58,19 @@ function handleSaveClick(e){
     console.log(`noteText: ${noteText}`);
 
     var jentry = {
-        Id: 0,
+        Id:entryId,
         Title: titleText,
         Note: noteText,
         Created: createdDate,
         Updated: null
     };
-    
-    for (var key in jentry) {
-        formData.append(key, jentry[key]);
-    }
 
+    console.log(`${JSON.stringify(jentry)}`);
+    
+    // for (var key in jentry) {
+    //     formData.append(key, jentry[key]);
+    // }
+    // console.log(`formData - Id: ${formData.get("Id")}`);
     // formData.append("jentry",{Id:0,Title:titleText,Note:noteText,Created:createdDate,Updated:null});
 
     // var result = confirm("Would you like to set the COMPLETED date?\nOK = YES (Save completed date) or \nCancel = NO (Just save Note)");
@@ -84,7 +86,11 @@ function handleSaveClick(e){
     fetch(`${baseUrl}${saveEntry}`,
 	{
     	method: 'POST',
-    	body:formData,
+    	body:JSON.stringify(jentry),
+        headers: {
+            'Content-type':'application/json; charset=UTF-8',
+            "uuid":currentUuid
+        },
 	
         }).then(response => response.json())
         .then(data => {

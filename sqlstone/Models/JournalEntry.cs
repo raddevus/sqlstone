@@ -7,5 +7,4 @@ public class JournalEntry{
     public String Note{get;set;}
     public String Created{get;set;}
     public String? Updated{get;set;}
-    
 }
