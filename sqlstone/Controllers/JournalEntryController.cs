@@ -60,7 +60,7 @@ public class JournalEntryController : Controller
     }
 
     [HttpPost]
-    public ActionResult Save([FromHeader] String uuid,[FromBody] JournalEntry jentry){
+    public ActionResult Save([FromForm] String uuid,[FromForm] JournalEntry jentry){
         Console.WriteLine(jentry.Note);
         Console.WriteLine(jentry.Title);
         

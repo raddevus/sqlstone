@@ -50,7 +50,9 @@ function handleSaveClick(e){
     // Do you want to save a completed date?
 
     var formData = new FormData();
-    formData.append(uuid,{"uuid":currentUuid});
+//06-17    formData.append(uuid,{"uuid":currentUuid});
+    formData.append("uuid",currentUuid);
+
     
     let noteText = document.querySelector(`#note-${entryId}`).value;
     let createdDate = document.querySelector(`#created-${entryId}`).textContent;
@@ -67,9 +69,9 @@ function handleSaveClick(e){
 
     console.log(`${JSON.stringify(jentry)}`);
     
-    // for (var key in jentry) {
-    //     formData.append(key, jentry[key]);
-    // }
+    for (var key in jentry) {
+        formData.append(key, jentry[key]);
+    }
     // console.log(`formData - Id: ${formData.get("Id")}`);
     // formData.append("jentry",{Id:0,Title:titleText,Note:noteText,Created:createdDate,Updated:null});
 
@@ -86,11 +88,8 @@ function handleSaveClick(e){
     fetch(`${baseUrl}${saveEntry}`,
 	{
     	method: 'POST',
-    	body:JSON.stringify(jentry),
-        headers: {
-            'Content-type':'application/json; charset=UTF-8',
-            "uuid":currentUuid
-        },
+    	body:formData,
+        
 	
         }).then(response => response.json())
         .then(data => {
