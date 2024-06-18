@@ -78,7 +78,11 @@ public class JournalEntryController : Controller
                 currentEntry.Note = jentry.Note;
                 currentEntry.Title = jentry.Title;
                 currentEntry.Updated = DateTime.Now.ToString("yyyy-MM-dd");
-                jec.Update(currentEntry);   
+                Console.WriteLine($"updated; {currentEntry.Updated}");
+                jec.Update(currentEntry);
+                jentry = currentEntry;
+                Console.WriteLine($"updated; {jentry.Updated}");
+
             }
             jec.SaveChanges();
             
@@ -89,7 +93,7 @@ public class JournalEntryController : Controller
             return new JsonResult(new {success=false,error=$"{ex.Message}"});
         }
 
-        return new JsonResult(new {success=true});
+        return new JsonResult(new {success=true,jentry=jentry});
     }
 
     public void ConvertEmptyStringToNull(JournalEntry jentry){

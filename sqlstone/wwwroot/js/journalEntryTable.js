@@ -17,7 +17,7 @@ const JournalEntryTable = function(journalEntries){
         React.createElement("td",{width:"150px"},
             React.createElement("button", {onClick: this.handleSaveClick.bind(this)},"Save")),
         React.createElement("td",{id:`created-${currentId}`,width:"150px"},  new Date(journalEntries[x].created).yyyymmdd()),
-        React.createElement("td",{width:"150px"}, journalEntries[x].updated)
+        React.createElement("td",{id:`updated-${currentId}`,width:"150px",}, journalEntries[x].updated)
         
             )
        );
@@ -73,17 +73,7 @@ function handleSaveClick(e){
     for (var key in jentry) {
         formData.append(key, jentry[key]);
     }
-    // console.log(`formData - Id: ${formData.get("Id")}`);
-    // formData.append("jentry",{Id:0,Title:titleText,Note:noteText,Created:createdDate,Updated:null});
-
-    // var result = confirm("Would you like to set the COMPLETED date?\nOK = YES (Save completed date) or \nCancel = NO (Just save Note)");
-
-    // if (result){
-    //     var completedDate = new Date().yyyymmdd();
-    //     formData.append("completed",completedDate);
-    //     document.querySelector(`#completed-${entryId}`).innerHTML = completedDate;
-    // }
-   
+  
     console.log(`finalURL: ${baseUrl}${saveEntry}`);
 
     fetch(`${baseUrl}${saveEntry}`,
@@ -99,7 +89,11 @@ function handleSaveClick(e){
                 alert("## ERROR! ##\nYour data couldn't be saved.\nPlease make sure you've registered your UUID.");
             }
             else{
-                alert("You're data has been saved successfully.");
+                uuidRegisterAlert("You're data has been saved successfully.");
+                console.log(`updated: ${data.jentry.updated} : ${data.jentry.note}`);
+                if (data.jentry.updated != undefined && data.jentry.updated != null && data.jentry.updated != ""){
+                    document.querySelector(`#updated-${entryId}`).textContent = data.jentry.updated;
+                }
             }
         
             });

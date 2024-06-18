@@ -64,7 +64,7 @@ function registerUser(){
         })
         .then(response => response.json())
         .then(data => console.log(data))
-        .then(uuidRegisterAlert());
+        .then(uuidRegisterAlert("The UUID has been registered on the server."));
 
 }
 
@@ -84,8 +84,9 @@ Date.prototype.yyyymmdd = function() {
     return [this.getFullYear() + "-", mm.length===2 ? '' : '0', mm + "-", dd.length===2 ? '' : '0', dd].join(''); // padding
   };
 
-function uuidRegisterAlert() {
+function uuidRegisterAlert(messageText) {
 	document.querySelector('.alert').style.display='block';
+    document.querySelector(`#alertMessage`).textContent = messageText;
 	alertInterval = setInterval(() => {
 		document.querySelector('.alert').style.display='none';
         clearInterval(alertInterval);
