@@ -38,7 +38,8 @@ function handleSaveClick(e){
         entryId = e.target.parentElement.parentElement.id;
     }
     console.log(`entryId: ${entryId}`);
-    var titleText = prompt("Please enter a title for the Journal Entry");
+    var currentTitleText = document.querySelector(`#title-${entryId}`).textContent;
+    var titleText = prompt("Please enter a title for the Journal Entry", currentTitleText);
     
     if (titleText != null){
         console.log(`I got that thing: ${titleText}`);
