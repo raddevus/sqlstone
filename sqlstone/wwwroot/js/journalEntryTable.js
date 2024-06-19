@@ -8,7 +8,7 @@ const JournalEntryTable = function(journalEntries){
 
     for (let x=0; x < journalEntries.length;x++){
         console.log(`journalEntries[${x}].note: ${journalEntries[x].note}`);
-        let currentId = journalEntries[x].id == 0 ? 1 : journalEntries[x].id;
+        let currentId = journalEntries[x].id;
         allItems.push( React.createElement("tr",{key:x, id:journalEntries[x].id},
         
         React.createElement("td",{id:`title-${currentId}`}, journalEntries[x].title),
@@ -93,7 +93,6 @@ function handleSaveClick(e){
                 console.log(`updated: ${data.jentry.updated} : ${data.jentry.note}`);
                 if (data.jentry.updated != undefined && data.jentry.updated != null && data.jentry.updated != ""){
                     document.querySelector(`#updated-${entryId}`).textContent = data.jentry.updated;
-                    window.location.reload();
                 }
             }
         
