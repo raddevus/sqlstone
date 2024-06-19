@@ -1,7 +1,9 @@
 ﻿// main.js
 var currentUuid = null;
 var lsUuidName = "currentUuid";
-var baseUrl = "http://localhost:5215/";  // make sure to include trailing /
+var devUrl = "http://localhost:5215/";  // make sure to include trailing /
+var prodUrl = "https://newlibre.com/journal/";
+var baseUrl = devUrl;
 var alertInterval = null;
 
 document.querySelector("body").addEventListener("load", initApp());
