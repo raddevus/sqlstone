@@ -3,7 +3,7 @@ var currentUuid = null;
 var lsUuidName = "currentUuid";
 var devUrl = "http://localhost:5215/";  // make sure to include trailing /
 var prodUrl = "https://newlibre.com/journal/";
-var baseUrl = devUrl;
+var baseUrl = prodUrl;
 var alertInterval = null;
 
 document.querySelector("body").addEventListener("load", initApp());
@@ -12,6 +12,15 @@ document.querySelector("body").addEventListener("load", initApp());
 function initApp(){
     console.log("initializing app...");
     loadUuidFromLocalStorage();
+    displaySaveMessage();
+}
+
+function displaySaveMessage(){
+    var shouldDisplay = localStorage.getItem("shouldDispalySaveMsg");
+    if (shouldDisplay){
+        uuidRegisterAlert("You're data has been saved successfully.");
+    }
+    localStorage.removeItem("shouldDispalySaveMsg");
 }
 
 function loadUuidFromLocalStorage(){

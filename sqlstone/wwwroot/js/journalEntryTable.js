@@ -85,17 +85,20 @@ function handleSaveClick(e){
         }).then(response => response.json())
         .then(data => {
             console.log(data);
-            if (data.success == false){
-                alert("## ERROR! ##\nYour data couldn't be saved.\nPlease make sure you've registered your UUID.");
-            }
-            else{
-                uuidRegisterAlert("You're data has been saved successfully.");
-                console.log(`updated: ${data.jentry.updated} : ${data.jentry.note}`);
-                if (data.jentry.updated != undefined && data.jentry.updated != null && data.jentry.updated != ""){
-                    document.querySelector(`#updated-${entryId}`).textContent = data.jentry.updated;
+                if (data.success == false){
+                    alert("## ERROR! ##\nYour data couldn't be saved.\nPlease make sure you've registered your UUID.");
+                    return;
                 }
-            }
-        
+                else{
+                    
+                    console.log(`updated: ${data.jentry.updated} : ${data.jentry.note}`);
+                    if (data.jentry.updated != undefined && data.jentry.updated != null && data.jentry.updated != ""){
+                        document.querySelector(`#updated-${entryId}`).textContent = data.jentry.updated;
+                    }
+                }
+                localStorage.setItem("shouldDispalySaveMsg",true);
+                window.location.reload();
+                
             });
 
 
