@@ -3,7 +3,7 @@ var currentUuid = null;
 var lsUuidName = "currentUuid";
 var devUrl = "http://localhost:5215/";  // make sure to include trailing /
 var prodUrl = "https://newlibre.com/journal/";
-var baseUrl = prodUrl;
+var baseUrl = devUrl;
 var alertInterval = null;
 
 document.querySelector("body").addEventListener("load", initApp());
