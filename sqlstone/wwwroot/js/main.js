@@ -87,6 +87,45 @@ function uuidv4() {
     ));
 }
 
+function downloadSqliteDb(){
+    console.log("1");
+    if (currentUuid != null){
+        fetch(`${baseUrl}User/DownloadSqliteDb?uuid=${currentUuid}`)
+            .then(resp => {console.log(resp); return resp.blob();})
+            .then(blob => {
+            downloadFile(blob,`journal-${GetFileTimeFormat(new Date())}.db`);
+        });
+    }
+    else{
+        console.log("3");
+        // uuidRegisterAlert("You need to register your UUID to be able to download your sqlite data.\Please register your UUID & try again.");
+    }
+
+}
+
+function GetFileTimeFormat(date) {
+    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+    var day  = ("0" + (date.getDate())).slice(-2);
+    var year = date.getFullYear();
+    var hour =  ("0" + (date.getHours())).slice(-2);
+    var min =  ("0" + (date.getMinutes())).slice(-2);
+    var seg = ("0" + (date.getSeconds())).slice(-2);
+    return `${year}-${month}-${day}_${hour}-${min}-${seg}`;
+}
+
+function downloadFile(blob, name = "journal.db") {
+    const href = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement("a"), {
+      href,
+      style: "display:none",
+      download: name,
+    });
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(href);
+    a.remove();
+}
+
 //Use this method - it does handle double digits correctly
 Date.prototype.yyyymmdd = function() {
     var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based

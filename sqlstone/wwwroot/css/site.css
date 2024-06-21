@@ -50,3 +50,11 @@ textarea {
 .k-hidden{visibility:hidden;display:none;}
 .k-show{visibility:visible;display:block;}
 #uuidAlertBtn{float:right;}
+.remove_button_css { 
+  box-sizing: none; 
+  background-color: transparent; 
+  outline: none !important;
+  padding: 0px;
+  border: 0px;
+  vertical-align: baseline;
+}
