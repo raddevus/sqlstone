@@ -58,3 +58,11 @@ textarea {
   border: 0px;
   vertical-align: baseline;
 }
+
+.boundBox{
+  
+  border: 2px solid #258cfb;
+  border-radius: 8px;
+  padding: 2px;
+  margin-bottom: 5px;
+}
