@@ -90,11 +90,13 @@ function uuidv4() {
 function downloadSqliteDb(){
     console.log("1");
     if (currentUuid != null){
-        fetch(`${baseUrl}User/DownloadSqliteDb?uuid=${currentUuid}`)
+        fetch(`${baseUrl}User/DownloadSqliteDb?uuid=${currentUuid}`,{
+                method: 'POST',
+            })
             .then(resp => {console.log(resp); return resp.blob();})
             .then(blob => {
-            downloadFile(blob,`journal-${GetFileTimeFormat(new Date())}.db`);
-        });
+                downloadFile(blob,`journal-${GetFileTimeFormat(new Date())}.db`);
+            });
     }
     else{
         console.log("3");

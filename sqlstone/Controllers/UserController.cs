@@ -64,12 +64,12 @@ public class UserController : Controller
         return new JsonResult(new {result=true, directory=webRootPath, ip=ipAddr});
     }
 
-    [HttpGet]
-    public IActionResult DownloadSqliteDb([FromQuery] String uuid)
+    [HttpPost]
+    public ActionResult DownloadSqliteDb([FromQuery] String uuid)
     {
         var userDir = Path.Combine(webRootPath,uuid);
         var journalDb = Path.Combine(userDir,templateDbFile);
         Console.WriteLine(journalDb);
-        return new FileContentResult  (System.IO.File.ReadAllBytes(journalDb), "application/x-sqlite3");
+        return new PhysicalFileResult(journalDb, "application/x-sqlite3");
     }
 }
