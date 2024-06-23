@@ -66,3 +66,13 @@ textarea {
   padding: 2px;
   margin-bottom: 5px;
 }
+
+#qrForm{display:none;
+  background:white;
+  position:absolute;
+  top: 200px;
+  left: 50%;
+  z-index: 99;
+  width:190px;height:190px;
+  border:#0000ff;
+  border-style:solid;}
