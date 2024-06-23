@@ -146,9 +146,22 @@ function uuidRegisterAlert(messageText) {
 }
 
 function destroyAccount(){
-    //document.querySelector("#destroyUserModal").classList.add("k-hidden");
-    //document.querySelector("#destroyUserModal").classList.add("hide");
-   // document.querySelector("#destroyUserModal").modal('hide');
+    
+    fetch(`${baseUrl}User/DestroyUserAccount?uuid=${currentUuid}`,{
+        method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => {
+       if (data.result == false){
+            alert(`Could not destroy the account. \nError -> ${data.message}`);
+            return;
+       }
+       uuidRegisterAlert("The UUUID, User Account & all associated data was permanently deleted.");
+       localStorage.removeItem("currentUuid");
+       currentUuid = null;
+       document.querySelector("#uuid").value = "";
+       window.location.reload();
+    });
     document.querySelector("#modalCloseBtn").click();
 }
 
