@@ -3,6 +3,7 @@ let qrImage;
 let qrFormIsVisible = false;
 
 document.body.addEventListener("mouseup", body_mouseup);
+qrImage = document.querySelector("#qrCode");
 genQRCodeButton = document.querySelector("#genQRButton");
 genQRCodeButton.addEventListener("click", genQRCodeButton_Click);
 
