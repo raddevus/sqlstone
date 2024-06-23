@@ -72,4 +72,17 @@ public class UserController : Controller
         Console.WriteLine(journalDb);
         return new PhysicalFileResult(journalDb, "application/x-sqlite3");
     }
+
+    [HttpPost]
+    public ActionResult DestroyUserAccount([FromQuery] String uuid){
+        var userDir = Path.Combine(webRootPath,uuid);
+        // Every valid UUID will have 4 hyphens
+        int hyphenCounter = userDir.AsSpan().Count('-');
+        // Insuring the target dir has 4 hyphens so user cannot delete other (private) diretories.
+        if (hyphenCounter != 4){
+            return new JsonResult(new {result=false,message="Cannot delete account because it doesn't seem that the associated diretory is a user owned."});
+        }
+        Directory.Delete(userDir,true);
+        return new JsonResult(new {result=true,message="The user account and all associated data has been destroyed."});
+    }
 }
