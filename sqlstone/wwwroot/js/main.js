@@ -145,4 +145,11 @@ function uuidRegisterAlert(messageText) {
 	}, 5500);
 }
 
+function destroyAccount(){
+    //document.querySelector("#destroyUserModal").classList.add("k-hidden");
+    //document.querySelector("#destroyUserModal").classList.add("hide");
+   // document.querySelector("#destroyUserModal").modal('hide');
+    document.querySelector("#modalCloseBtn").click();
+}
+
 
