@@ -32,6 +32,11 @@ public class UserController : Controller
 
     [HttpPost]
     public ActionResult RegisterUser([FromQuery] string uuid){
+        // Every valid UUID will have 4 hyphens & be 36 chars long
+        int hyphenCounter = uuid.AsSpan().Count('-');
+        if (uuid.Length != 36 || hyphenCounter != 4){
+            return new JsonResult(new {result=false, error="Couldn't register user. Try again.\nUUID doesn't look valid.  Please generate a proper UUID & try again."});
+        }
         Console.WriteLine($"uuid: {uuid}");
         User u = new User(uuid);
         var ipAddr = HelperTool.GetIpAddress(Request);
@@ -75,13 +80,12 @@ public class UserController : Controller
 
     [HttpPost]
     public ActionResult DestroyUserAccount([FromQuery] String uuid){
-        var userDir = Path.Combine(webRootPath,uuid);
-        // Every valid UUID will have 4 hyphens
-        int hyphenCounter = userDir.AsSpan().Count('-');
-        // Insuring the target dir has 4 hyphens so user cannot delete other (private) diretories.
-        if (hyphenCounter != 4){
-            return new JsonResult(new {result=false,message="Cannot delete account because it doesn't seem that the associated diretory is a user owned."});
+        // Every valid UUID will have 4 hyphens & be 36 chars long
+        int hyphenCounter = uuid.AsSpan().Count('-');
+        if (uuid.Length != 36 || hyphenCounter != 4){
+            return new JsonResult(new {result=false,message="Your uuid doesn't look like a valid value.\nCannot delete account."});
         }
+        var userDir = Path.Combine(webRootPath,uuid);
         Directory.Delete(userDir,true);
         return new JsonResult(new {result=true,message="The user account and all associated data has been destroyed."});
     }

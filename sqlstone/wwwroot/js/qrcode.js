@@ -11,7 +11,7 @@ function genQRCodeButton_Click(){
 
     let uuidInput = document.querySelector("#uuid");
     if (uuidInput.value == ""){
-        uuidRegisterAlert("There is no UUID value to generate a QRCode for.");
+        uuidRegisterAlert("There is no UUID value to generate a QRCode for.", true);
         return;
     }
     console.log(uuidInput.value);

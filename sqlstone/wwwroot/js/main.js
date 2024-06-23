@@ -74,8 +74,14 @@ function registerUser(){
             method: 'POST',
         })
         .then(response => response.json())
-        .then(data => console.log(data))
-        .then(uuidRegisterAlert("The UUID has been registered on the server."));
+        .then(data => {
+            if (data.result == true){
+                uuidRegisterAlert("The UUID has been registered on the server.")
+            }
+            else{
+                uuidRegisterAlert(data.error,true);
+            }
+        });
 
 }
 
@@ -99,8 +105,8 @@ function downloadSqliteDb(){
             });
     }
     else{
-        console.log("3");
-        // uuidRegisterAlert("You need to register your UUID to be able to download your sqlite data.\Please register your UUID & try again.");
+        
+        uuidRegisterAlert("You need to register your UUID to be able to download your sqlite data.\Please register your UUID & try again.",true);
     }
 
 }
@@ -136,8 +142,14 @@ Date.prototype.yyyymmdd = function() {
     return [this.getFullYear() + "-", mm.length===2 ? '' : '0', mm + "-", dd.length===2 ? '' : '0', dd].join(''); // padding
   };
 
-function uuidRegisterAlert(messageText) {
+function uuidRegisterAlert(messageText,isError) {
 	document.querySelector('.alert').style.display='block';
+    document.querySelector('.alert').classList.add("alert-success");
+    document.querySelector('.alert').classList.remove("alert-danger");
+    if (isError != undefined){
+        document.querySelector('.alert').classList.remove("alert-success");
+        document.querySelector('.alert').classList.add("alert-danger");
+    }
     document.querySelector(`#alertMessage`).textContent = messageText;
 	alertInterval = setInterval(() => {
 		document.querySelector('.alert').style.display='none';
