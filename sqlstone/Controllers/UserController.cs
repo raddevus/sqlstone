@@ -86,7 +86,17 @@ public class UserController : Controller
             return new JsonResult(new {result=false,message="Your uuid doesn't look like a valid value.\nCannot delete account."});
         }
         var userDir = Path.Combine(webRootPath,uuid);
-        Directory.Delete(userDir,true);
+        try{
+            Directory.Delete(userDir,true);
+        }
+        catch(Exception ex){
+            return new JsonResult(new {result=false,message=$"Error! Delete Failed. \nCannot delete account. {ex.Message}"});
+        }
         return new JsonResult(new {result=true,message="The user account and all associated data has been destroyed."});
+    }
+
+    [HttpPost]
+    public ActionResult GetTime([FromQuery] String uuid){
+        return new JsonResult(new {dtime = DateTime.Now, uuid=$"GOTCHA! {uuid}"});
     }
 }
